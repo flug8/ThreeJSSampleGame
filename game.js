@@ -153,24 +153,24 @@ window.addEventListener('mousedown', function () {
     pos = [raycast().x, raycast().y];
 });
 
-var line;
+var linex;
 var rotX = 0;
 var drawingActive = true;
 var pos = [0,0]
 
 function drawLine() {
     if (mousedown && drawingActive) {
-        var x = raycast().x - pos[0];
-        var y = raycast().y - pos[1];
-        var rot = 0;
+        const x = raycast().x - pos[0];
+        const y = raycast().y - pos[1];
+        let rot;
 
-        var c = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        const c = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
         rot = Math.atan2(y , x);
 
-        line.position.x = (pos[0] + raycast().x) /2;
-        line.position.y = (pos[1] + raycast().y) /2;
-        line.rotation.z = rot;
-        line.scale.x = c;
+        linex.position.x = (pos[0] + raycast().x) /2;
+        linex.position.y = (pos[1] + raycast().y) /2;
+        linex.rotation.z = rot;
+        linex.scale.x = c;
     }
 }
 
@@ -184,7 +184,6 @@ var sphereXY = new THREE.Mesh(
 )
 scene.add(sphereXY);
 
-var camera2;
 
 function cam2() {
     
@@ -217,6 +216,8 @@ gui.add(ray, 'rot', 0, 2*Math.PI);
 var raycaster2;
 var line;
 console.log("Ready");
+
+setInterval(raycast2, 2000);
 function raycast2() {
     raycaster2  = new THREE.Raycaster(new THREE.Vector3(0,0,0), new THREE.Vector3(Math.cos(ray.rot),Math.sin(ray.rot),0), 0 , 100);
     line = new THREE.Line(new THREE.BoxGeometry().setFromPoints( [new THREE.Vector3(0,0,10), new THREE.Vector3(Math.cos(ray.rot)*100,Math.sin(ray.rot)*100,2)]), new THREE.LineBasicMaterial({color: 0x0000ff}));
